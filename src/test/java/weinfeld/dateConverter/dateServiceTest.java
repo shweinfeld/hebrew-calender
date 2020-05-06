@@ -22,7 +22,7 @@ public class dateServiceTest {
         dateService service = retrofit.create(dateService.class);
 
         //when
-        dateHebrew date = service.getDate("2020", "5", "4").execute().body();
+        dateHebrew date = service.getDate("2020", "05", "06").execute().body();
 
         //then
         assertNotNull(date);
