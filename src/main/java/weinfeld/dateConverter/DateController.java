@@ -7,11 +7,9 @@ import retrofit2.Response;
 public class DateController {
 
     private dateService service;
-    private DateView view;
 
-    public DateController(dateService service, DateView view) {
+    public DateController(dateService service) {
         this.service = service;
-        this.view = view;
     }
 
     public void requestData(String year, String month, String day) {
@@ -20,7 +18,19 @@ public class DateController {
             public void onResponse(Call<dateHebrew> call, Response<dateHebrew> response) {
 
                 dateHebrew date = response.body();
-                view.setDate(date);
+                assert date != null;
+                DateFrame.hebDate.setText(date.hd + " " + date.hm + " " + date.hy);
+                DateFrame.hebHebDate.setText(date.hebrew);
+                StringBuilder events = new StringBuilder();
+                events.append("<html>");
+                if (date.events != null) {
+                    for (String event: date.events)
+                    {
+                        events.append(event).append("<br/>");
+                    }
+                }
+                events.append("</html>");
+                DateFrame.hebEvents.setText(events.toString());
 
             }
 

@@ -26,15 +26,11 @@ public class dateServiceTest {
 
         //then
         assertNotNull(date);
-        assertNotNull(date.hy);
+        assertNotEquals(0, date.hy);
         assertNotNull(date.hm);
-        assertNotNull(date.hd);
+        assertNotEquals(0 ,date.hd);
         assertNotNull(Arrays.toString(date.events));
         assertNotNull(date.hebrew);
     }
-
-
-
-
 
 }

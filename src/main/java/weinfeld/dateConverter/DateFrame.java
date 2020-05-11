@@ -17,7 +17,10 @@ public class DateFrame extends JFrame {
     JButton convertButton;
     JPanel pickDate;
     JDatePickerImpl datePicker;
-    DateView view;
+    JPanel displayDate;
+    protected static JLabel hebDate;
+    protected static JLabel hebHebDate;
+    protected static JLabel hebEvents;
 
     public DateFrame() {
         setSize(600, 400);
@@ -26,14 +29,14 @@ public class DateFrame extends JFrame {
         setLayout(new BorderLayout());
 
         Properties p = new Properties();
-        p.put("text.today", "today");
+        p.put("text.today", "Today");
         p.put("text.month", "month");
         p.put("text.year", "year");
 
         UtilDateModel model = new UtilDateModel();
+        model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateComponentFormatter());
-
         convertButton = new JButton("Convert");
         convertButton.addActionListener(actionEvent-> { getDate(); });
 
@@ -42,8 +45,18 @@ public class DateFrame extends JFrame {
         pickDate.add(convertButton);
         add(pickDate, BorderLayout.WEST);
 
-        view = new DateView();
-        add(view, BorderLayout.CENTER);
+        displayDate = new JPanel();
+        displayDate.setLayout(new BoxLayout(displayDate, BoxLayout.Y_AXIS));
+        hebDate = new JLabel();
+        hebHebDate = new JLabel();
+        hebEvents = new JLabel();
+        hebDate.setFont(new Font("Calibri", Font.PLAIN, 17));
+        hebHebDate.setFont(new Font("Calibri", Font.PLAIN, 17));
+        hebEvents.setFont(new Font("Calibri", Font.PLAIN, 17));
+        displayDate.add(hebDate);
+        displayDate.add(hebHebDate);
+        displayDate.add(hebEvents);
+        add(displayDate,BorderLayout.CENTER);
 
 
 
@@ -61,7 +74,7 @@ public class DateFrame extends JFrame {
                 .build();
         dateService service = retrofit.create(dateService.class);
 
-        DateController controller = new DateController(service, view);
+        DateController controller = new DateController(service);
         controller.requestData(String.valueOf(selectedYear), String.valueOf(selectedMonth), String.valueOf(selectedDay));
 
     }
