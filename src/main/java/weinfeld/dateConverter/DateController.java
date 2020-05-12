@@ -4,12 +4,20 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import javax.swing.*;
+
 public class DateController {
 
     private dateService service;
+    private JLabel hebDate;
+    private JLabel hebHebDate;
+    private JLabel hebEvents;
 
-    public DateController(dateService service) {
+    public DateController(dateService service, JLabel hebDate, JLabel hebHebDate, JLabel hebEvents) {
         this.service = service;
+        this.hebDate = hebDate;
+        this.hebHebDate = hebHebDate;
+        this.hebEvents = hebEvents;
     }
 
     public void requestData(String year, String month, String day) {
@@ -19,8 +27,8 @@ public class DateController {
 
                 dateHebrew date = response.body();
                 assert date != null;
-                DateFrame.hebDate.setText(date.hd + " " + date.hm + " " + date.hy);
-                DateFrame.hebHebDate.setText(date.hebrew);
+                hebDate.setText(date.hd + " " + date.hm + " " + date.hy);
+                hebHebDate.setText(date.hebrew);
                 StringBuilder events = new StringBuilder();
                 events.append("<html>");
                 if (date.events != null) {
@@ -30,7 +38,7 @@ public class DateController {
                     }
                 }
                 events.append("</html>");
-                DateFrame.hebEvents.setText(events.toString());
+               hebEvents.setText(events.toString());
 
             }
 

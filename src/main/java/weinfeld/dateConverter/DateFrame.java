@@ -14,13 +14,13 @@ import java.util.Properties;
 
 public class DateFrame extends JFrame {
 
-    JButton convertButton;
-    JPanel pickDate;
-    JDatePickerImpl datePicker;
-    JPanel displayDate;
-    protected static JLabel hebDate;
-    protected static JLabel hebHebDate;
-    protected static JLabel hebEvents;
+    private JButton convertButton;
+    private JPanel pickDate;
+    private JDatePickerImpl datePicker;
+    private JPanel displayDate;
+    private JLabel hebDate;
+    private JLabel hebHebDate;
+    private JLabel hebEvents;
 
     public DateFrame() {
         setSize(600, 400);
@@ -74,7 +74,7 @@ public class DateFrame extends JFrame {
                 .build();
         dateService service = retrofit.create(dateService.class);
 
-        DateController controller = new DateController(service);
+        DateController controller = new DateController(service, hebDate, hebHebDate, hebEvents);
         controller.requestData(String.valueOf(selectedYear), String.valueOf(selectedMonth), String.valueOf(selectedDay));
 
     }
